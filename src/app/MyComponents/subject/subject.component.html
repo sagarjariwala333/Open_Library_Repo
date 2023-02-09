@@ -1,0 +1,34 @@
+<table class="table table-striped">
+
+	<thead>
+		<tr>
+    <td>Title</td>
+    <td>Number of editions</td>
+    <td>First publish year</td>  
+    </tr>
+	</thead>
+
+	<tbody>
+		<tr *ngFor="let item of arr | paginate: { id: 'foo',
+                                                      itemsPerPage: pageSize,
+                                                      currentPage: p,
+                                                      totalItems: total }">
+
+            <td>{{ item.title }}</td>
+            <td>{{ item.edition_count }}</td>
+            <td>{{ item.first_publish_year }}</td>
+                                                      </tr>
+	</tbody>
+	
+</table>
+
+<pagination-controls  id="foo"
+                      (pageChange)="pageChanged($event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+</pagination-controls>
+

@@ -1,0 +1,45 @@
+<table class="table table-stdiped">
+
+	<thead>
+    
+    <tr>
+		<td>Title</td>
+    <td>First Publish year</td>
+    <td>Ebook count</td>
+    <td>Lending Edition</td>
+    <td>Cover edition</td>
+    <td>Number of ebooks</td>
+  </tr>
+	
+  </thead>
+
+	<tbody>
+		<tr *ngFor="let item of arr | paginate: { id: 'foo',
+                                                      itemsPerPage: pageSize,
+                                                      currentPage: p,
+                                                      totalItems: total }">
+
+            <td>{{ item.title }}</td>
+            <td>{{ item.first_publish_year }}</td>
+            <td>{{ item.ebook_count_i }}</td>
+            <td>{{ item.lending_edition_s }}</td>
+            <td>{{ item.cover_edition_key }}</td>
+            <td>{{ item.ebook_count_i }}</td>
+    </tr>
+                                                      	
+
+                                                  
+	</tbody>
+	
+</table>
+
+<pagination-controls  id="foo"
+                      (pageChange)="pageChanged($event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+</pagination-controls>
+
