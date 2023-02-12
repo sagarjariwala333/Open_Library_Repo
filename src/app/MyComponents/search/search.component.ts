@@ -20,7 +20,7 @@ export class SearchComponent {
 	res:any;
 	result:any;
 
-	constructor(private api:ApiService,private location:Location) {
+	constructor(private api:ApiService) {
 	}
 
 	test(str:String)
@@ -53,10 +53,10 @@ export class SearchComponent {
 		})
 	}
 
-	public ngOnInit(): void 
+	/*public ngOnInit(): void 
 	{
 		this.result = JSON.parse(JSON.stringify(this.location.getState()));
-  	}
+  	}*/
 
 }
 

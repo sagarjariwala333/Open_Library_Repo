@@ -20,7 +20,8 @@ style="width: 280px;height: 100vh;">
           <input #name class="form-control mr-sm-2 mb-2" [(ngModel)]="subject_str" name="subject_str" 
            type="search" placeholder="Search" aria-label="Search">
 
-          <button class="btn btn-outline-success my-2 my-sm-0 mt-3 me-2" 
+          <button class="btn btn-outline-success my-2 my-sm-0 mt-3 me-2"
+          routerLink="/subject" 
           (click)="getSubject(subject_str)" type="submit">
             Search
           </button>
@@ -85,6 +86,7 @@ style="width: 280px;height: 100vh;">
     <li style="float: left;" class="me-2">
       <button class="btn btn-outline-success my-2 my-sm-0 mt-3" 
       (click)="getSearch(search_str)"
+      routerLink="/search"
       type="submit">
         Search
       </button>

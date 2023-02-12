@@ -10,72 +10,44 @@ import { SearchComponent } from './MyComponents/search/search.component';
 })
 export class AppComponent {
 
-str!:String;
+  str!:String;
 
-@ViewChild('childComp')child!:SearchComponent;
+  title = 'mylibrary-app';
+  search_str:String="";
+  subject_str:String="";
+  subject1!:String;
+  componentRef!:any;
 	
 	constructor(private api:ApiService,
 				private routes:Router) {
 
 	}
 
-  title = 'mylibrary-app';
-  search_str:String="";
-  subject_str:String="";
-  subject1!:String;
+   delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+   }
 
   onActivate(componentRef:any){
-  	console.log(componentRef);
-  	componentRef.test(this.str);
+    this.componentRef=componentRef      	
   }
   
-
-
-  getSubject(sub:String)
+  async getSubject(sub:String)
   {
   	this.str=sub;
-  	let subject={
-  		name:sub.toString().trim().toLowerCase()
-  	}
-  	let param = subject;
-  	if(this.routes.navigated==false)
-  	{
-  		this.routes.navigateByUrl("/subject",{state : subject});
-  	}
-  	else
-  	{
-  		this.routes.navigateByUrl("/subject",{state : subject});
-  	}
-  	
+    await this.delay(1000);
+    this.componentRef.test(this.str);
   }
 
-  onClick(data:any)
+  async getSearch(ser:String)
   {
-  	console.log(data);
-  }
-
-  getSearch(ser:String)
-  {
-  	//console.log(this.child);
-  	//this.child.test();
   	this.str=ser;
-  	let search={
-  		name:ser.toString().trim().toLowerCase()
-  	}
-  	let param=search;
-
-  	if(this.routes.navigated==false)
-  	{
-  		this.routes.navigateByUrl("/search",{state : param});
-  	}
-  	else
-  	{
-  		this.routes.navigateByUrl("/search",{state : param});
-  	}
+    await this.delay(1000);
+    this.componentRef.test(this.str);
   }
 
   onJava()
   {
+    console.log("Button clciked..");
   	this.getSubject("java");
   }
 
@@ -93,12 +65,4 @@ str!:String;
   {
   	this.getSubject("python");
   }
-
-  cancelSubject()
-  {
-  	//this.inputName.nativeElement.value = ' ';
-  	//this.routes.navigateByUrl("/");
-  	//console.log(document.getElementById("can"));
-  }
-
 }
