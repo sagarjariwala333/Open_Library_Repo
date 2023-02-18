@@ -13,7 +13,7 @@ export class SubjectComponent {
 	data:any;
 	pageSize:number=10;
 	p:number=0;
-	total:number=100;
+	total:number=0;
 	arr:any;
 	res:any;
 	result:any;
@@ -24,8 +24,9 @@ export class SubjectComponent {
 
 	pageChanged(page:any)
 	{
-			console.log("Page changes to "+ page);
-			this.populatePageTable(page);
+		this.p=page;
+			console.log("Page changes to "+ this.p);
+			this.populatePageTable(this.p-1);
 	}
 
 	test(str:String)
@@ -36,12 +37,13 @@ export class SubjectComponent {
 
 	populatePageTable(page:number)
 	{
-		//console.log(this.res);
+				//console.log(this.res);
 			let i,j;
 			this.arr=[];
-			for(i=0,j=page*10;i<10 && i<this.res.length;i++,j++)
+		//	page=page-1;
+			for(i=0,j=page*10;i<10 && j<this.res.length;i++,j++)
 			{
-				this.arr.push(this.res[i]);
+				this.arr.push(this.res[j]);
 			}
 			console.log(this.arr);
 	}
@@ -53,6 +55,8 @@ export class SubjectComponent {
 			//console.log(data);
 			let res=JSON.parse(JSON.stringify(data));
 			this.res = res.works;
+			this.arr=[];
+			this.total=this.res.length;
 			this.populatePageTable(0);
 		});
 	}

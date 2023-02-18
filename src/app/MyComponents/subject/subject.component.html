@@ -1,3 +1,10 @@
+<style>
+  .my-pagination ::ng-deep .ngx-pagination .current {
+    background: red;
+  }
+</style>
+
+
 <table class="table table-striped">
 
 	<thead>
@@ -23,12 +30,9 @@
 </table>
 
 <pagination-controls  id="foo"
+                  
+                    [responsive]="true"
                       (pageChange)="pageChanged($event)"
-                      (pageBoundsCorrection)="pageChanged($event)"
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      screenReaderPaginationLabel="Pagination"
-                      screenReaderPageLabel="page"
-                      screenReaderCurrentLabel="You're on page">
+                      >
 </pagination-controls>
 

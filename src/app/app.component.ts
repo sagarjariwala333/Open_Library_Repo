@@ -63,6 +63,7 @@ export class AppComponent {
 
   onPython()
   {
+    console.log("Python");
   	this.getSubject("python");
   }
 }
