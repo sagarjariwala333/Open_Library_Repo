@@ -10,12 +10,6 @@ import { Location } from '@angular/common';
 })
 export class SearchComponent {
 
-
-	@Input() id!: string;
-@Input() maxSize!: number;
-@Output() pageChange!: EventEmitter<number>;
-@Output() pageBoundsCorrection!: EventEmitter<number>;
-
 	data:any;
 	pageSize:number=10;
 	p:number=0;
@@ -23,41 +17,48 @@ export class SearchComponent {
 	arr:any;
 	res:any;
 	result:any;
+	url!:string;
+	hidden:boolean=true;
 
 	constructor(private api:ApiService) {
 	}
 
-	test(str:String)
+	test(str:string)
 	{
+		this.url=str;
+		this.p=0;
 		console.log("Hello world"+str);
-		this.getData(str);
+		this.getData(str,0);
 	}
 
 	pageChanged(page:any)
 	{
-		//this.p+=1;
 		this.p=page;
-			console.log("Page changes to "+ page);
-			this.populatePageTable(this.p-1);
-
+		this.getData(this.url,this.p-1);
 	}
 
-	populatePageTable(page:number)
+	getData(str:string,page:number)
 	{
-			let i,j;
+		let offset;
+		if(page==0)
+		{
+			offset=0;
+		}
+		else
+		{
+			offset = page + 10;
+		}
+		this.api.getSearch(str,offset).subscribe((data:any)=>{
+			
 			this.arr=[];
-			for(i=0,j=page*10;i<10 && j<this.data.docs.length;i++,j++)
+			this.arr=data.docs;
+			this.total=data.numFound;
+			this.hidden = (this.total==0) ? true : false;
+			if(this.total==0)
 			{
-				this.arr.push(this.data.docs[j]);
+				alert("No data found");
 			}
-	}
-
-	getData(str:String)
-	{
-		this.api.getSearch(str).subscribe((data:any)=>{
-			this.data=data;
-			this.total=this.data.docs.length;
-			this.populatePageTable(0);
+			
 		})
 	}
 }

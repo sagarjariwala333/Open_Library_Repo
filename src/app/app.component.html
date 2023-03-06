@@ -5,8 +5,7 @@
 <div class="row">
 <div class="col-md-auto">
 
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" 
-style="width: 280px;height: 100vh;">
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light w-100 vh-100">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-4">Open Library</span>
@@ -17,8 +16,10 @@ style="width: 280px;height: 100vh;">
       <li class="nav-item">
 
          <form class="form-inline">
-          <input #name class="form-control mr-sm-2 mb-2" [(ngModel)]="subject_str" name="subject_str" 
-           type="search" placeholder="Search" aria-label="Search">
+          
+          <input #name class="form-control mr-sm-2 mb-2" 
+          [(ngModel)]="subject_str" name="subject_str" 
+           type="search" placeholder="Search" aria-label="Search" ngModel>
 
           <button class="btn btn-outline-success my-2 my-sm-0 mt-3 me-2"
           routerLink="/subject" 
@@ -29,7 +30,7 @@ style="width: 280px;height: 100vh;">
           <button class="btn btn-outline-danger my-2 my-sm-0 mt-3" type="submit" 
           id="can" routerLink="/"
           type="reset">
-            Cancel
+            Clear
           </button>
         </form>
       </li>
@@ -68,15 +69,15 @@ style="width: 280px;height: 100vh;">
 
 </div>
 
-<div class="col" style="height: 15vh;">
+<div class="col w-100">
 
 <div class="row">
 
-<form class="form-inline mt-3" style="width: 40vh">
+<form class="form-inline mt-3 w-100">
 
   <ul style="list-style: none;">
     
-    <li style="float: left;">
+    <li style="float: left;" class="me-2">
       <input class="form-control mr-sm-2 mb-2" type="search" 
       [(ngModel)]="search_str"
       name="search_str"
@@ -92,16 +93,28 @@ style="width: 280px;height: 100vh;">
       </button>
     </li>
 
-    <li style="float: left;">
+    <li style="float: left;" class="me-2">
       <button class="btn btn-outline-danger my-2 my-sm-0 mt-3" type="reset" routerLink="/">
-        Cancel
+        Clear
     </button>
     </li>
+
+    <li style="float: left;" class="me-2">
+     <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+      (change)="onChange()">
+      <label class="form-check-label" for="flexCheckDefault">
+       Search by author
+      </label>
+      </div>
+    </li>
+
     </ul>
 </form>
+
 </div>
 
 <div class="row mt-5">
-  <router-outlet #childComp (activate)="onActivate($event)"></router-outlet>
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
 </div>
 </div>

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-	serach_url:String="https://openlibrary.org/search.json";
+	serach_url:string="https://openlibrary.org/search.json";
 	subject_url:string="https://openlibrary.org/subjects/";
 
   constructor(private http:HttpClient) { }
@@ -17,18 +17,16 @@ export class ApiService {
   	return this.http.get(url);
   }
 
-  getSearch(search:String)
+  getSearch(search:string,offset:number)
   {
-
-  	//console.log(search);
     search=search.trim().replace(/ /g,"+");
-    let q="q="+search;
-    let call_url = this.serach_url+"?"+q;
+    let call_url = this.serach_url+"?"+search+"&limit=10&offset="+offset;
+    console.log(call_url);
     call_url=call_url.toLowerCase();
     return this.http.get(call_url);
   }
 
-  getSubject(subject:String)
+  getSubject(subject:string)
   {
   	subject=subject+".json";
   	let call_url = this.subject_url+subject;

@@ -1,22 +1,24 @@
-import { Component,ViewChild,ComponentRef } from '@angular/core';
+import { Component,ViewChild,ComponentRef,OnInit } from '@angular/core';
 import { ApiService } from './Services/api.service';
 import { RouterModule, Routes,Router } from '@angular/router';
 import { SearchComponent } from './MyComponents/search/search.component';
+import { FormControl,FormGroup,NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
 
-  str!:String;
+  str!:string;
 
   title = 'mylibrary-app';
-  search_str:String="";
-  subject_str:String="";
-  subject1!:String;
+  search_str:string="";
+  subject_str:string="";
+  subject1!:string;
   componentRef!:any;
+  byAuthor:boolean=false;
 	
 	constructor(private api:ApiService,
 				private routes:Router) {
@@ -31,18 +33,34 @@ export class AppComponent {
     this.componentRef=componentRef      	
   }
   
-  async getSubject(sub:String)
+  async getSubject(sub:string)
   {
-  	this.str=sub;
-    await this.delay(1000);
-    this.componentRef.test(this.str);
+    sub=sub.trim();
+    if(sub.length>0)
+    {
+    	this.str=sub;
+      await this.delay(500);
+      this.componentRef.test(this.str);
+    }
   }
 
-  async getSearch(ser:String)
+  async getSearch(ser:string)
   {
-  	this.str=ser;
-    await this.delay(1000);
-    this.componentRef.test(this.str);
+    ser=ser.trim();
+
+    if(ser.length>0)
+    {
+      	this.str=ser;
+        await this.delay(500);
+        let url=(this.byAuthor)?"author="+this.str:"title="+this.str;
+        this.componentRef.test(url);
+    }
+  }
+
+  onChange()
+  {
+    this.byAuthor=(this.byAuthor) ? false : true;
+    console.log(this.byAuthor);
   }
 
   onJava()

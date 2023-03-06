@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiService } from '../../Services/api.service';
 import { NgxPaginationModule,PaginationInstance } from 'ngx-pagination'
@@ -17,6 +17,9 @@ export class SubjectComponent {
 	arr:any;
 	res:any;
 	result:any;
+	offset:number=0;
+	url!:String;
+	hidden:boolean=true;
 
 	constructor(private api:ApiService,private location:Location) {
 		
@@ -25,46 +28,46 @@ export class SubjectComponent {
 	pageChanged(page:any)
 	{
 		this.p=page;
-			console.log("Page changes to "+ this.p);
-			this.populatePageTable(this.p-1);
+		console.log("Page changes to "+ this.p);
+		this.populatePageTable(this.p-1);
 	}
 
-	test(str:String)
+	test(str:string)
 	{
+		this.p=0;
+		this.url=str;
 		console.log(str);
 		this.getData(str);
 	}
 
 	populatePageTable(page:number)
 	{
-				//console.log(this.res);
-			let i,j;
-			this.arr=[];
-		//	page=page-1;
-			for(i=0,j=page*10;i<10 && j<this.res.length;i++,j++)
-			{
-				this.arr.push(this.res[j]);
-			}
-			console.log(this.arr);
+		let i,j;
+		this.arr=[];
+		for(i=0,j=page*10;i<10 && j<this.res.length;i++,j++)
+		{
+			this.arr.push(this.res[j]);
+		}
+		this.hidden = (this.arr.length == 0) ? true : false;
 	}
 
-	getData(str:String)
+	getData(str:string)
 	{
-		console.log(str);
 		this.api.getSubject(str).subscribe((data)=>{
-			//console.log(data);
 			let res=JSON.parse(JSON.stringify(data));
 			this.res = res.works;
 			this.arr=[];
 			this.total=this.res.length;
-			this.populatePageTable(0);
+
+			if(this.total==0)
+			{
+				alert("Data not found");
+			}
+			else
+			{
+				this.populatePageTable(0);
+			}
+			
 		});
 	}
-
-	public ngOnInit(): void 
-	{
-		this.result = JSON.parse(JSON.stringify(this.location.getState()));
-		
-  	}
-
 }

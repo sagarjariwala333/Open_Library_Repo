@@ -4,7 +4,7 @@
   }
 </style>
 
-
+<div [hidden]="hidden">
 <table class="table table-striped">
 
 	<thead>
@@ -21,18 +21,16 @@
                                                       currentPage: p,
                                                       totalItems: total }">
 
-            <td>{{ item.title }}</td>
-            <td>{{ item.edition_count }}</td>
-            <td>{{ item.first_publish_year }}</td>
-                                                      </tr>
+            <td>{{ item.title?item.title:'Not available' }}</td>
+            <td>{{ item.edition_count?item.edition_count:'Not available' }}</td>
+            <td>{{ item.first_publish_year?item.first_publish_year:'Not available' }}</td>
 	</tbody>
 	
 </table>
 
 <pagination-controls  id="foo"
-                  
                     [responsive]="true"
-                      (pageChange)="pageChanged($event)"
-                      >
+                      (pageChange)="pageChanged($event)">
 </pagination-controls>
+</div>
 
